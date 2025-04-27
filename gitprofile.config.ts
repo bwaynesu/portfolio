@@ -19,13 +19,17 @@ const CONFIG = {
         sortBy: 'stars', // Sort projects by 'stars' or 'updated'
         limit: 8, // How many projects to display.
         exclude: {
-          forks: false, // Forked projects will not be displayed if set to true.
+          forks: true, // Forked projects will not be displayed if set to true.
           projects: [], // These projects will not be displayed. example: ['arifszn/my-project1', 'arifszn/my-project2']
         },
       },
       manual: {
         // Properties for manually specifying projects
-        projects: [], // List of repository names to display. example: ['arifszn/my-project1', 'arifszn/my-project2']
+        projects: [
+          'bwaynesu/Steam-Achievement-csv2vdf', 
+          'bwaynesu/bSoundMute', 
+          'bwaynesu/BSelection'
+        ], // List of repository names to display. example: ['arifszn/my-project1', 'arifszn/my-project2']
       },
     },
     external: {
@@ -172,7 +176,7 @@ const CONFIG = {
     snippetVersion: 6,
   },
   themeConfig: {
-    defaultTheme: 'lofi',
+    defaultTheme: 'emerald',
 
     // Hides the switch in the navbar
     // Useful if you want to support a single color mode
@@ -190,31 +194,31 @@ const CONFIG = {
       'light',
       'dark',
       'cupcake',
-      'bumblebee',
+      //'bumblebee',
       'emerald',
-      'corporate',
-      'synthwave',
+      //'corporate',
+      //'synthwave',
       'retro',
-      'cyberpunk',
+      //'cyberpunk',
       'valentine',
       'halloween',
-      'garden',
-      'forest',
-      'aqua',
-      'lofi',
+      //'garden',
+      //'forest',
+      //'aqua',
+      //'lofi',
       'pastel',
-      'fantasy',
-      'wireframe',
+      //'fantasy',
+      //'wireframe',
       'black',
-      'luxury',
+      //'luxury',
       'dracula',
       'cmyk',
       'autumn',
       'business',
-      'acid',
-      'lemonade',
+      //'acid',
+      //'lemonade',
       'night',
-      'coffee',
+      //'coffee',
       'winter',
       'dim',
       'nord',
