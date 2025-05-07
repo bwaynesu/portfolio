@@ -21,7 +21,8 @@ const CONFIG = {
         exclude: {
           forks: true, // Forked projects will not be displayed if set to true.
           projects: [
-            'bwaynesu/UnityLearn-Addressables-LoadyDungeons'
+            'bwaynesu/UnityLearn-Addressables-LoadyDungeons',
+            'bwaynesu/bwaynesu'
           ], // These projects will not be displayed. example: ['arifszn/my-project1', 'arifszn/my-project2']
         },
       },
