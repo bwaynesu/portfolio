@@ -45,7 +45,7 @@ const CONFIG = {
             'BAssetDock is a Unity editor extension that organizes assets into customizable groups with visual tags, drag-and-drop, and multilingual support to enhance workflow.',
           imageUrl:
             'https://assetstorev1-prd-cdn.unity3d.com/key-image/30ceec31-710c-4531-86eb-6fef01c24e49.webp',
-          link: 'https://assetstore.unity.com/packages/tools/utilities/bassetdock-316237',
+          link: 'https://assetstore.unity.com/packages/slug/316237',
         },
         /*{
           title: 'Project Name',
