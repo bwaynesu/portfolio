@@ -16,22 +16,28 @@ const CONFIG = {
       header: 'Github Projects',
       mode: 'automatic', // Mode can be: 'automatic' or 'manual'
       automatic: {
-        sortBy: 'stars', // Sort projects by 'stars' or 'updated'
+        sortBy: 'updated', // Sort projects by 'stars' or 'updated'
         limit: 8, // How many projects to display.
         exclude: {
           forks: true, // Forked projects will not be displayed if set to true.
           projects: [
             'bwaynesu/UnityLearn-Addressables-LoadyDungeons',
-            'bwaynesu/bwaynesu'
+            'bwaynesu/bwaynesu',
+            'bwaynesu/BInspector'
           ], // These projects will not be displayed. example: ['arifszn/my-project1', 'arifszn/my-project2']
         },
       },
       manual: {
         // Properties for manually specifying projects
         projects: [
+          'bwaynesu/BComponentComparator',
+          'bwaynesu/BNav',
+          'bwaynesu/DeleteMissingScripts',
+          'bwaynesu/BShortcut',
+          'bwaynesu/BSelection',
+          'bwaynesu/AnyStruct',
           'bwaynesu/Steam-Achievement-csv2vdf', 
-          'bwaynesu/bSoundMute', 
-          'bwaynesu/BSelection'
+          'bwaynesu/OdinEnumArrayTitle'
         ], // List of repository names to display. example: ['arifszn/my-project1', 'arifszn/my-project2']
       },
     },
