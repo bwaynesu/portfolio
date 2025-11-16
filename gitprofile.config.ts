@@ -29,6 +29,7 @@ const CONFIG = {
       },
       manual: {
         // Properties for manually specifying projects
+        sortBy: 'updated', // Sort projects by 'stars' or 'updated'
         projects: [
           'bwaynesu/BComponentComparator',
           'bwaynesu/BNav',
