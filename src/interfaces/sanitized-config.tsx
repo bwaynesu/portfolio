@@ -6,6 +6,7 @@ export interface SanitizedGitHubProjects {
   display: boolean;
   header: string;
   mode: string;
+  images: Record<string, string>;
   automatic: {
     sortBy: string;
     limit: number;
@@ -139,6 +140,7 @@ export interface SanitizedConfig {
   github: SanitizedGithub;
   projects: SanitizedProjects;
   seo: SanitizedSEO;
+  tagline?: string;
   social: SanitizedSocial;
   resume: SanitizedResume;
   skills: Array<string>;

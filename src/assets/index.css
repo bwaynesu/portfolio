@@ -40,6 +40,19 @@ code {
     monospace;
 }
 
+/* Item titles: theme primary mixed 45% into base-content so all themes keep WCAG contrast
+   (scripts/title-contrast.check.ts). oklab keeps the primary hue; oklch drifted (emerald went teal).
+   Browsers without color-mix keep base-content. */
+.text-title {
+  color: oklch(var(--bc));
+}
+
+@supports (color: color-mix(in oklab, red, blue)) {
+  .text-title {
+    color: color-mix(in oklab, oklch(var(--p)) 45%, oklch(var(--bc)));
+  }
+}
+
 .text-base-content-important {
   color: hsla(var(--bc) / var(--tw-text-opacity)) !important;
 }
@@ -88,5 +101,93 @@ svg {
   }
   to {
     opacity: 1;
+  }
+}
+
+/* Scroll reveal (useReveal). The hook adds these only when motion is allowed. */
+.reveal {
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
+}
+
+.reveal-hidden {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* Project grid fade on sort/page change (motion-safe:animate-[card-fade_...]). */
+@keyframes card-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Desktop left column stays put; useStickyFit adds this and sets `top` inline. */
+.sticky-sidebar {
+  position: sticky;
+}
+
+/*
+ * Code thumbnail typing: lines grow left to right one by one (80 ms apart,
+ * 250 ms each), then a cursor blinks 4 times (1.1 s each) and stays on. Starts hidden only when JS adds
+ * .code-thumb-typing; plays once .is-in-view is set. Reduced motion: static.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .code-thumb-typing .code-line {
+    transform: scaleX(0);
+    transform-box: fill-box;
+    transform-origin: left center;
+  }
+
+  .code-thumb-typing .code-cursor {
+    opacity: 0;
+  }
+
+  .code-thumb-typing.is-in-view .code-line {
+    animation: code-type 250ms ease-out forwards;
+    animation-delay: calc(var(--i) * 80ms);
+  }
+
+  .code-thumb-typing.is-in-view .code-cursor {
+    animation: code-cursor-blink 1.1s steps(1, end) 4 both;
+    animation-delay: calc((var(--line-count) - 1) * 80ms + 250ms);
+  }
+}
+
+@keyframes code-type {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Off then on, so the last frame (kept by fill-mode) leaves the cursor visible. */
+@keyframes code-cursor-blink {
+  0%,
+  50% {
+    opacity: 0;
+  }
+  50.01%,
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Bio typing cursor (components/type-text): same 1.1 s blink, 4 times (4.4 s, under WCAG 5 s), then hidden. */
+.type-cursor {
+  animation: type-cursor-blink 1.1s steps(1, end) 4 both;
+}
+
+@keyframes type-cursor-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
   }
 }

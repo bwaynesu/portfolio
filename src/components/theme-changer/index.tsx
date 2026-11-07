@@ -3,6 +3,7 @@ import { SanitizedThemeConfig } from '../../interfaces/sanitized-config';
 import { LOCAL_STORAGE_KEY_NAME } from '../../constants';
 import { skeleton } from '../../utils';
 import { MouseEvent } from 'react';
+import { flushSync } from 'react-dom';
 
 /**
  * Renders a theme changer component.
@@ -31,12 +32,24 @@ const ThemeChanger = ({
   ) => {
     e.preventDefault();
 
-    document.querySelector('html')?.setAttribute('data-theme', selectedTheme);
+    const applyTheme = () => {
+      document.querySelector('html')?.setAttribute('data-theme', selectedTheme);
+      setTheme(selectedTheme);
+    };
 
     typeof window !== 'undefined' &&
       localStorage.setItem(LOCAL_STORAGE_KEY_NAME, selectedTheme);
 
-    setTheme(selectedTheme);
+    // Cross-fade where View Transitions exist; instant switch otherwise or with reduced motion.
+    // flushSync keeps React's re-render inside the callback, after the old frame is captured.
+    const reduceMotion = window.matchMedia?.(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+    if (!reduceMotion && typeof document.startViewTransition === 'function') {
+      document.startViewTransition(() => flushSync(applyTheme));
+    } else {
+      applyTheme();
+    }
   };
 
   return (

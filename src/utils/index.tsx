@@ -36,6 +36,7 @@ export const getSanitizedConfig = (
           display: config?.projects?.github?.display ?? true,
           header: config?.projects?.github?.header || 'Github Projects',
           mode: config?.projects?.github?.mode || 'automatic',
+          images: config?.projects?.github?.images || {},
           automatic: {
             sortBy: config?.projects?.github?.automatic?.sortBy || 'stars',
             limit: config?.projects?.github?.automatic?.limit || 8,
@@ -60,6 +61,7 @@ export const getSanitizedConfig = (
         description: config?.seo?.description,
         imageURL: config?.seo?.imageURL,
       },
+      tagline: config?.tagline,
       social: {
         linkedin: config?.social?.linkedin,
         x: config?.social?.x,

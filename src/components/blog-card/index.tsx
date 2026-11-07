@@ -132,10 +132,10 @@ const BlogCard = ({
               <div className="w-full">
                 <div className="flex items-start px-4">
                   <div className="text-center md:text-left w-full">
-                    <h2 className="font-medium text-base-content opacity-60">
+                    <h2 className="text-lg font-semibold text-title">
                       {article.title}
                     </h2>
-                    <p className="text-base-content opacity-50 text-xs">
+                    <p className="mt-1 text-base-content opacity-60 text-sm">
                       {formatDistance(article.publishedAt, new Date(), {
                         addSuffix: true,
                       })}
@@ -183,7 +183,7 @@ const BlogCard = ({
           >
             <div className="card-body">
               <div className="mx-3 mb-2">
-                <h5 className="card-title">
+                <h5 className="card-title text-2xl font-bold">
                   {loading ? (
                     skeleton({ widthCls: 'w-28', heightCls: 'h-8' })
                   ) : (

@@ -15,6 +15,13 @@ const CONFIG = {
       display: true, // Display GitHub projects?
       header: 'Github Projects',
       mode: 'manual', // Mode can be: 'automatic' or 'manual'
+      // Preview images on repo cards, keyed by repo name. Files in public/ are served under `base`.
+      images: {
+        DeleteMissingScripts: '/portfolio/DeleteMissingScripts.png',
+        BComponentComparator: '/portfolio/BComponentComparator.png',
+        UnityLogViewer: '/portfolio/UnityLogViewer.png',
+        BNav: '/portfolio/BNav.png',
+      },
       automatic: {
         sortBy: 'updated', // Sort projects by 'stars' or 'updated'
         limit: 8, // How many projects to display.
@@ -23,13 +30,17 @@ const CONFIG = {
           projects: [
             'bwaynesu/UnityLearn-Addressables-LoadyDungeons',
             'bwaynesu/bwaynesu',
-            'bwaynesu/BInspector'
+            'bwaynesu/BInspector',
+            'bwaynesu/UnityLearn-BulletHell',
+            'bwaynesu/UnityLearn-Try-Test-Runner',
+            'bwaynesu/UnityLearn-Using-Input-System',
+            'bwaynesu/UnityLearn-Tanks-Pluggable-AI',
+            'bwaynesu/UnityLearn-Using-Addressables',
           ], // These projects will not be displayed. example: ['arifszn/my-project1', 'arifszn/my-project2']
         },
       },
       manual: {
         // Properties for manually specifying projects
-        sortBy: 'updated', // Sort projects by 'stars' or 'updated'
         projects: [
           'bwaynesu/BComponentComparator',
           'bwaynesu/BNav',
@@ -37,22 +48,45 @@ const CONFIG = {
           'bwaynesu/BShortcut',
           'bwaynesu/BSelection',
           'bwaynesu/AnyStruct',
-          'bwaynesu/Steam-Achievement-csv2vdf', 
-          'bwaynesu/OdinEnumArrayTitle'
+          'bwaynesu/Steam-Achievement-csv2vdf',
+          'bwaynesu/OdinEnumArrayTitle',
+          'bwaynesu/UnityLogViewer',
+          'bwaynesu/agentic-ebs',
+          'bwaynesu/Gist-Catalog',
+          'bwaynesu/BSoundMute',
         ], // List of repository names to display. example: ['arifszn/my-project1', 'arifszn/my-project2']
       },
     },
     external: {
-      header: 'My Projects',
+      header: 'Games & Products',
       // To hide the `External Projects` section, keep it empty.
       projects: [
         {
+          title: 'Ringash (contributing developer)',
+          description: 'Top-down 3D action RPG. Steam demo available.',
+          imageUrl:
+            'https://cdn.akamai.steamstatic.com/steam/apps/2323140/header.jpg',
+          link: 'https://store.steampowered.com/app/2323140/Ringash/',
+        },
+        {
           title: 'BAssetDock',
           description:
-            'BAssetDock is a Unity editor extension that organizes assets into customizable groups with visual tags, drag-and-drop, and multilingual support to enhance workflow.',
-          imageUrl:
-            'https://assetstorev1-prd-cdn.unity3d.com/key-image/30ceec31-710c-4531-86eb-6fef01c24e49.webp',
-          link: 'https://assetstore.unity.com/packages/slug/316237',
+            'Group assets by task instead of digging through the Project window.',
+          // Files in public/ are served under `base`, and the card uses imageUrl as-is.
+          imageUrl: '/portfolio/BAssetDock.jpg',
+          link: 'https://u3d.as/3vZn',
+        },
+        {
+          title: 'Unity Log Viewer',
+          description: 'Offline desktop viewer for Unity Player.log files.',
+          imageUrl: '/portfolio/UnityLogViewer.png',
+          link: 'https://github.com/bwaynesu/UnityLogViewer',
+        },
+        {
+          title: 'My Racing Projects',
+          description: 'Video showcase of my racing game projects.',
+          imageUrl: '/portfolio/MyRacingProjects.jpg',
+          link: 'https://youtu.be/ucg_tkJpu4o',
         },
         /*{
           title: 'Project Name',
@@ -67,23 +101,26 @@ const CONFIG = {
   },
   seo: {
     title: 'Portfolio of bwaynesu',
-    description: '',
-    imageURL: '',
+    description:
+      'Wayne Su: Unity games, dev tools, and AI-assisted development.',
+    imageURL: 'https://avatars.githubusercontent.com/u/2370689?v=4',
   },
+  // Stats line. Rendered under the bio in the avatar card.
+  tagline: '10+ years Unity · 10+ shipped games · 15+ dev tools',
   social: {
     linkedin: 'wayne-su-94804186',
-    x: 'bwaynesu',
+    x: '',
     mastodon: '',
     researchGate: '',
     facebook: '',
     instagram: '',
     reddit: '',
     threads: '',
-    youtube: 'bwaynesu', // example: 'pewdiepie'
+    youtube: '', // example: 'pewdiepie'
     udemy: '',
     dribbble: '',
     behance: '',
-    medium: 'bwaynesu',
+    medium: '',
     dev: '',
     stackoverflow: '', // example: '1/jeff-atwood'
     skype: '',
@@ -93,25 +130,17 @@ const CONFIG = {
     email: 'bwaynesu.dev@gmail.com',
   },
   resume: {
-    fileUrl:
-      '', // Empty fileUrl will hide the `Download Resume` button.
+    fileUrl: '', // Empty fileUrl will hide the `Download Resume` button.
   },
   skills: [
     'C#',
     'Unity3D',
-    'Azure',
-    'Prezi',
-    'Photoshop',
     'C++',
-    'Unreal',
-    'MySQL',
-    'React',
-    'TypeScript',
     'Git',
     'GitHub',
-    'SVN',
-    'Trello',
-    'Notion',
+    'Claude Code',
+    'GitHub Copilot',
+    'Gemini',
   ],
   experiences: [
     /*{
@@ -175,7 +204,7 @@ const CONFIG = {
   blog: {
     source: 'medium', // medium | dev
     username: 'bwaynesu', // to hide blog section, keep it empty
-    limit: 10, // How many articles to display. Max is 10.
+    limit: 5, // How many articles to display. Max is 10.
   },
   googleAnalytics: {
     id: '', // GA3 tracking id/GA4 tag id UA-XXXXXXXXX-X | G-XXXXXXXXXX
@@ -249,7 +278,9 @@ const CONFIG = {
   },
 
   // Optional Footer. Supports plain text or HTML.
-  footer: `Made with <a 
+  footer: `<a class="text-primary" href="mailto:bwaynesu.dev@gmail.com">Email</a>
+    · <a class="text-primary" href="https://linkedin.com/in/wayne-su-94804186" target="_blank" rel="noreferrer">LinkedIn</a>
+    · Made with <a
       class="text-primary" href="https://github.com/arifszn/gitprofile"
       target="_blank"
       rel="noreferrer"

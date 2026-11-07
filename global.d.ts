@@ -22,6 +22,13 @@ interface GitHubProjects {
   mode?: string;
 
   /**
+   * Preview images shown on top of repo cards, keyed by repo name.
+   *
+   * example: { 'my-project1': '/portfolio/my-project1.png' }
+   */
+  images?: Record<string, string>;
+
+  /**
    * Config of automatic mode
    */
   automatic?: {
@@ -373,6 +380,11 @@ interface Config {
    * SEO config
    */
   seo?: SEO;
+
+  /**
+   * Short stats line shown under the bio
+   */
+  tagline?: string;
 
   /**
    * Social links

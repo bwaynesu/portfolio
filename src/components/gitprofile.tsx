@@ -30,6 +30,8 @@ import ExternalProjectCard from './external-project-card';
 import BlogCard from './blog-card';
 import Footer from './footer';
 import PublicationCard from './publication-card';
+import { useReveal } from '../hooks/use-reveal';
+import { useStickyFit } from '../hooks/use-sticky-fit';
 
 /**
  * Renders the GitProfile component.
@@ -46,6 +48,11 @@ const GitProfile = ({ config }: { config: Config }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [githubProjects, setGithubProjects] = useState<GithubProject[]>([]);
+  // Scroll reveal only below the fold; left column and first screen stay static.
+  const sidebarRef = useStickyFit();
+  const layoutReady = !loading && profile !== null;
+  const externalRef = useReveal(layoutReady);
+  const blogRef = useReveal(layoutReady);
 
   const getGithubProjects = useCallback(
     async (publicRepoCount: number): Promise<GithubProject[]> => {
@@ -196,7 +203,8 @@ const GitProfile = ({ config }: { config: Config }) => {
             />
             <div className={`p-4 lg:p-10 min-h-full ${BG_COLOR}`}>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 rounded-box">
-                <div className="col-span-1">
+                {/* Sticky on desktop, bottom-aligned when taller than the window: see useStickyFit. */}
+                <div className="col-span-1 lg:self-start" ref={sidebarRef}>
                   <div className="grid grid-cols-1 gap-6">
                     {!sanitizedConfig.themeConfig.disableSwitch && (
                       <ThemeChanger
@@ -211,13 +219,17 @@ const GitProfile = ({ config }: { config: Config }) => {
                       loading={loading}
                       avatarRing={sanitizedConfig.themeConfig.displayAvatarRing}
                       resumeFileUrl={sanitizedConfig.resume.fileUrl}
+                      tagline={sanitizedConfig.tagline}
                     />
-                    <DetailsCard
-                      profile={profile}
-                      loading={loading}
-                      github={sanitizedConfig.github}
-                      social={sanitizedConfig.social}
-                    />
+                    {/* Desktop: contact card in the left column. Mobile copy sits after the projects. */}
+                    <div className="hidden lg:block">
+                      <DetailsCard
+                        profile={profile}
+                        loading={loading}
+                        github={sanitizedConfig.github}
+                        social={sanitizedConfig.social}
+                      />
+                    </div>
                     {sanitizedConfig.skills.length !== 0 && (
                       <SkillCard
                         loading={loading}
@@ -246,11 +258,29 @@ const GitProfile = ({ config }: { config: Config }) => {
                 </div>
                 <div className="lg:col-span-2 col-span-1">
                   <div className="grid grid-cols-1 gap-6">
+                    {sanitizedConfig.projects.external.projects.length !==
+                      0 && (
+                      <div
+                        className="col-span-1 lg:col-span-2"
+                        ref={externalRef}
+                      >
+                        <ExternalProjectCard
+                          loading={loading}
+                          header={sanitizedConfig.projects.external.header}
+                          externalProjects={
+                            sanitizedConfig.projects.external.projects
+                          }
+                          googleAnalyticId={sanitizedConfig.googleAnalytics.id}
+                        />
+                      </div>
+                    )}
                     {sanitizedConfig.projects.github.display && (
                       <GithubProjectCard
                         header={sanitizedConfig.projects.github.header}
-                        limit={sanitizedConfig.projects.github.automatic.limit}
+                        // Page size: 6 cards per page.
+                        limit={6}
                         githubProjects={githubProjects}
+                        images={sanitizedConfig.projects.github.images}
                         loading={loading}
                         username={sanitizedConfig.github.username}
                         googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
@@ -262,23 +292,22 @@ const GitProfile = ({ config }: { config: Config }) => {
                         publications={sanitizedConfig.publications}
                       />
                     )}
-                    {sanitizedConfig.projects.external.projects.length !==
-                      0 && (
-                      <ExternalProjectCard
+                    <div className="lg:hidden">
+                      <DetailsCard
+                        profile={profile}
                         loading={loading}
-                        header={sanitizedConfig.projects.external.header}
-                        externalProjects={
-                          sanitizedConfig.projects.external.projects
-                        }
-                        googleAnalyticId={sanitizedConfig.googleAnalytics.id}
+                        github={sanitizedConfig.github}
+                        social={sanitizedConfig.social}
                       />
-                    )}
+                    </div>
                     {sanitizedConfig.blog.display && (
-                      <BlogCard
-                        loading={loading}
-                        googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
-                        blog={sanitizedConfig.blog}
-                      />
+                      <div className="col-span-1 lg:col-span-2" ref={blogRef}>
+                        <BlogCard
+                          loading={loading}
+                          googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
+                          blog={sanitizedConfig.blog}
+                        />
+                      </div>
                     )}
                   </div>
                 </div>

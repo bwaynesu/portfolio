@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import LazyImage from '../lazy-image';
 import { ga, skeleton } from '../../utils';
+import { CARD_HOVER_CLS, THUMB_ZOOM_CLS } from '../../constants';
 import { SanitizedExternalProject } from '../../interfaces/sanitized-config';
 
 const ExternalProjectCard = ({
@@ -69,7 +70,7 @@ const ExternalProjectCard = ({
   const renderExternalProjects = () => {
     return externalProjects.map((item, index) => (
       <a
-        className="card shadow-lg compact bg-base-100 cursor-pointer"
+        className={`card shadow-lg compact bg-base-100 cursor-pointer ${CARD_HOVER_CLS}`}
         key={index}
         href={item.link}
         onClick={(e) => {
@@ -93,7 +94,7 @@ const ExternalProjectCard = ({
             <div className="w-full">
               <div className="px-4">
                 <div className="text-center w-full">
-                  <h2 className="font-medium text-center opacity-60 mb-2">
+                  <h2 className="text-lg font-semibold text-center text-title mb-2">
                     {item.title}
                   </h2>
                   {item.imageUrl && (
@@ -102,6 +103,8 @@ const ExternalProjectCard = ({
                         <LazyImage
                           src={item.imageUrl}
                           alt={'thumbnail'}
+                          // The squircle mask already clips, so the zoom stays inside it.
+                          className={THUMB_ZOOM_CLS}
                           placeholder={skeleton({
                             widthCls: 'w-full',
                             heightCls: 'h-full',
@@ -131,7 +134,7 @@ const ExternalProjectCard = ({
             <div className="card compact bg-base-100 shadow bg-opacity-40">
               <div className="card-body">
                 <div className="mx-3 flex items-center justify-between mb-2">
-                  <h5 className="card-title">
+                  <h5 className="card-title text-2xl font-bold">
                     {loading ? (
                       skeleton({ widthCls: 'w-40', heightCls: 'h-8' })
                     ) : (
